@@ -27,6 +27,10 @@ function LineChart02({
 
   useEffect(() => {
     const ctx = canvas.current;
+      if (chart) {
+        chart.destroy();
+      }
+
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
       type: 'line',
@@ -104,8 +108,8 @@ function LineChart02({
               ul.firstChild.remove();
             }
             // Reuse the built-in legendItems generator
-            const items = c.options.plugins.legend.labels.generateLabels(c);
-            items.slice(0, 2).forEach((item) => {
+            const items = c.options.plugins.legend?.labels?.generateLabels?.(c);
+            if(items){items.slice(0, 2).forEach((item) => {
               const li = document.createElement('li');
               li.style.marginLeft = tailwindConfig().theme.margin[3];
               // Button element
@@ -138,7 +142,7 @@ function LineChart02({
               button.appendChild(box);
               button.appendChild(label);
               ul.appendChild(li);
-            });
+            });}
           },
         },
       ],
