@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
-import SidebarLinkGroup from './SidebarLinkGroup';
+import SidebarLinkGroup from "./SidebarLinkGroup";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
@@ -10,18 +10,25 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const trigger = useRef(null);
   const sidebar = useRef(null);
 
-  const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
-  const [sidebarExpanded, setSidebarExpanded] = useState(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true');
+  const storedSidebarExpanded = localStorage.getItem("sidebar-expanded");
+  const [sidebarExpanded, setSidebarExpanded] = useState(
+    storedSidebarExpanded === null ? false : storedSidebarExpanded === "true"
+  );
 
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!sidebar.current || !trigger.current) return;
-      if (!sidebarOpen || sidebar.current.contains(target) || trigger.current.contains(target)) return;
+      if (
+        !sidebarOpen ||
+        sidebar.current.contains(target) ||
+        trigger.current.contains(target)
+      )
+        return;
       setSidebarOpen(false);
     };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
+    document.addEventListener("click", clickHandler);
+    return () => document.removeEventListener("click", clickHandler);
   });
 
   // close if the esc key is pressed
@@ -30,16 +37,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       if (!sidebarOpen || keyCode !== 27) return;
       setSidebarOpen(false);
     };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
+    document.addEventListener("keydown", keyHandler);
+    return () => document.removeEventListener("keydown", keyHandler);
   });
 
   useEffect(() => {
-    localStorage.setItem('sidebar-expanded', sidebarExpanded);
+    localStorage.setItem("sidebar-expanded", sidebarExpanded);
     if (sidebarExpanded) {
-      document.querySelector('body').classList.add('sidebar-expanded');
+      document.querySelector("body").classList.add("sidebar-expanded");
     } else {
-      document.querySelector('body').classList.remove('sidebar-expanded');
+      document.querySelector("body").classList.remove("sidebar-expanded");
     }
   }, [sidebarExpanded]);
 
@@ -83,7 +90,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
 
         {/* Links */}
-        <div className="space-y-8">
+        {/* Logo */}
+        <div>
+          <NavLink
+            end
+            to="/"
+            className={`text-slate-400 truncate transition duration-150
+            }`}
+          >
+            <h2 className="pl-3 text-3xl hidden 2xl:block">HalfTee</h2>
+            <h2 className="pl-3 text-3xl block 2xl:hidden">H</h2>
+          </NavLink>
+        </div>
+        <div className="flex flex-col justify-between h-full space-y-8">
           {/* Pages group */}
           <div>
             <h3 className="text-xs uppercase text-slate-500 font-semibold pl-3">
@@ -93,64 +112,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               >
                 •••
               </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                Pages
-              </span>
             </h3>
             <ul className="mt-3">
-              {/* HalfTee */}
-              <li
-                className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("HalfTee") && "bg-slate-900"
-                }`}
-              >
-                <NavLink
-                  end
-                  to="/HalfTee"
-                  className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("HalfTee")
-                      ? "hover:text-slate-200"
-                      : "hover:text-white"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="grow flex items-center">
-                      <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                        <path
-                          className={`fill-current ${
-                            pathname.includes("HalfTee")
-                              ? "text-indigo-500"
-                              : "text-slate-600"
-                          }`}
-                          d="M14.5 7c4.695 0 8.5 3.184 8.5 7.111 0 1.597-.638 3.067-1.7 4.253V23l-4.108-2.148a10 10 0 01-2.692.37c-4.695 0-8.5-3.184-8.5-7.11C6 10.183 9.805 7 14.5 7z"
-                        />
-                        <path
-                          className={`fill-current ${
-                            pathname.includes("HalfTee")
-                              ? "text-indigo-300"
-                              : "text-slate-400"
-                          }`}
-                          d="M11 1C5.477 1 1 4.582 1 9c0 1.797.75 3.45 2 4.785V19l4.833-2.416C8.829 16.85 9.892 17 11 17c5.523 0 10-3.582 10-8s-4.477-8-10-8z"
-                        />
-                      </svg>
-                      <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                        HalfTee
-                      </span>
-                    </div>
-                  </div>
-                </NavLink>
-              </li>
               {/* Dashboard */}
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("Dashboard") && "bg-slate-900"
+                  pathname.includes("dashboard") && "bg-slate-900"
                 }`}
               >
                 <NavLink
                   end
-                  to="/Dashboard"
+                  to="/dashboard"
                   className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("Dashboard")
+                    pathname.includes("dashboard")
                       ? "hover:text-slate-200"
                       : "hover:text-white"
                   }`}
@@ -160,19 +134,27 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                         <path
                           className={`fill-current ${
-                            pathname.includes("Dashboard")
+                            pathname === "/" || pathname.includes("dashboard")
                               ? "text-indigo-500"
-                              : "text-slate-600"
+                              : "text-slate-400"
                           }`}
-                          d="M14.5 7c4.695 0 8.5 3.184 8.5 7.111 0 1.597-.638 3.067-1.7 4.253V23l-4.108-2.148a10 10 0 01-2.692.37c-4.695 0-8.5-3.184-8.5-7.11C6 10.183 9.805 7 14.5 7z"
+                          d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"
                         />
                         <path
                           className={`fill-current ${
-                            pathname.includes("Dashboard")
-                              ? "text-indigo-300"
+                            pathname === "/" || pathname.includes("dashboard")
+                              ? "text-indigo-600"
+                              : "text-slate-600"
+                          }`}
+                          d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z"
+                        />
+                        <path
+                          className={`fill-current ${
+                            pathname === "/" || pathname.includes("dashboard")
+                              ? "text-indigo-200"
                               : "text-slate-400"
                           }`}
-                          d="M11 1C5.477 1 1 4.582 1 9c0 1.797.75 3.45 2 4.785V19l4.833-2.416C8.829 16.85 9.892 17 11 17c5.523 0 10-3.582 10-8s-4.477-8-10-8z"
+                          d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
                         />
                       </svg>
                       <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -185,14 +167,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Assumptions */}
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("Assumptions") && "bg-slate-900"
+                  pathname.includes("assumptions") && "bg-slate-900"
                 }`}
               >
                 <NavLink
                   end
-                  to="/Assumptions"
+                  to="/assumptions"
                   className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("Assumptions")
+                    pathname.includes("assumptions")
                       ? "hover:text-slate-200"
                       : "hover:text-white"
                   }`}
@@ -201,19 +183,19 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path
                         className={`fill-current ${
-                          pathname.includes("Assumptions")
+                          pathname.includes("assumptions")
                             ? "text-indigo-500"
                             : "text-slate-600"
                         }`}
-                        d="M16 13v4H8v-4H0l3-9h18l3 9h-8Z"
+                        d="M20 7a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 0120 7zM4 23a.75.75 0 01-.75-.75 1.5 1.5 0 00-1.5-1.5.75.75 0 110-1.5 1.5 1.5 0 001.5-1.5.75.75 0 111.5 0 1.5 1.5 0 001.5 1.5.75.75 0 110 1.5 1.5 1.5 0 00-1.5 1.5A.75.75 0 014 23z"
                       />
                       <path
                         className={`fill-current ${
-                          pathname.includes("Assumptions")
+                          pathname.includes("assumptions")
                             ? "text-indigo-300"
                             : "text-slate-400"
                         }`}
-                        d="m23.72 12 .229.686A.984.984 0 0 1 24 13v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1v-8c0-.107.017-.213.051-.314L.28 12H8v4h8v-4H23.72ZM13 0v7h3l-4 5-4-5h3V0h2Z"
+                        d="M17 23a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 010-2 4 4 0 004-4 1 1 0 012 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1zM7 13a1 1 0 01-1-1 4 4 0 00-4-4 1 1 0 110-2 4 4 0 004-4 1 1 0 112 0 4 4 0 004 4 1 1 0 010 2 4 4 0 00-4 4 1 1 0 01-1 1z"
                       />
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -225,14 +207,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Integrations */}
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("Integrations") && "bg-slate-900"
+                  pathname.includes("integrations") && "bg-slate-900"
                 }`}
               >
                 <NavLink
                   end
-                  to="/Integrations"
+                  to="/integrations"
                   className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("Integrations")
+                    pathname.includes("integrations")
                       ? "hover:text-slate-200"
                       : "hover:text-white"
                   }`}
@@ -240,20 +222,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path
-                        className={`fill-current ${
-                          pathname.includes("Integrations")
-                            ? "text-indigo-500"
-                            : "text-slate-600"
-                        }`}
-                        d="M1 3h22v20H1z"
+                        className="fill-current text-slate-600"
+                        d="M19 5h1v14h-2V7.414L5.707 19.707 5 19H4V5h2v11.586L18.293 4.293 19 5Z"
                       />
                       <path
-                        className={`fill-current ${
-                          pathname.includes("Integrations")
-                            ? "text-indigo-300"
-                            : "text-slate-400"
-                        }`}
-                        d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
+                        className="fill-current text-slate-400"
+                        d="M5 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8ZM5 23a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm14 0a4 4 0 1 1 0-8 4 4 0 0 1 0 8Z"
                       />
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
@@ -270,14 +244,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Profile */}
               <li
                 className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${
-                  pathname.includes("calendar") && "bg-slate-900"
+                  pathname.includes("profile") && "bg-slate-900"
                 }`}
               >
                 <NavLink
                   end
-                  to="/calendar"
+                  to="/profile"
                   className={`block text-slate-200 truncate transition duration-150 ${
-                    pathname.includes("calendar")
+                    pathname.includes("profile")
                       ? "hover:text-slate-200"
                       : "hover:text-white"
                   }`}
@@ -285,20 +259,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   <div className="flex items-center">
                     <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                       <path
-                        className={`fill-current ${
-                          pathname.includes("calendar")
-                            ? "text-indigo-500"
-                            : "text-slate-600"
-                        }`}
-                        d="M1 3h22v20H1z"
+                        className="fill-current text-slate-600"
+                        d="M8.07 16H10V8H8.07a8 8 0 110 8z"
                       />
                       <path
-                        className={`fill-current ${
-                          pathname.includes("calendar")
-                            ? "text-indigo-300"
-                            : "text-slate-400"
-                        }`}
-                        d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
+                        className="fill-current text-slate-400"
+                        d="M15 12L8 6v5H0v2h8v5z"
                       />
                     </svg>
                     <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
