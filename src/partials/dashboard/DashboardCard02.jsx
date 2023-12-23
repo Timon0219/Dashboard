@@ -11,17 +11,17 @@ function DashboardCard02() {
     {
       id: "0",
       image: Image01,
-      name: "Alex Shatov",
-      email: "alexshatov@gmail.com",
+      name: "Jarret",
+      email: "revity.jarret@gmail.com",
       location: "🇺🇸",
       spent: "$2,890.66",
     },
     {
       id: "1",
       image: Image02,
-      name: "Philip Harbach",
-      email: "philip.h@gmail.com",
-      location: "🇩🇪",
+      name: "Andres Lopez",
+      email: "andresfelipe0219@gmail.com",
+      location: "co",
       spent: "$2,767.04",
     },
     {
