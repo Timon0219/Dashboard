@@ -2,7 +2,7 @@ import styled from "styled-components";
 const Profile = () => {
   return (
     <main className="px-4 sm:px-6 lg:px-8 py-8 ">
-      <div className="w-full max-w-9xl mx-auto bg-white dark:bg-slate-800 border">
+      <div className="w-full max-w-9xl mx-auto bg-white dark:bg-slate-800">
         <form className="w-fit mx-auto py-16 ">
           <CustomInput>
             <label htmlFor="name">Name</label>

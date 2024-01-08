@@ -12,21 +12,21 @@ const Integrations = () => {
         <Tabs
           selectedIndex={selectedTabIndex}
           onSelect={handleTabSelect}
-          className="bg-white dark:bg-slate-800 border"
+          className="bg-white dark:bg-slate-800"
         >
           <TabList className="flex">
             <CustomTab
-              className={`${selectedTabIndex === 0 && " bg-white text-black"}`}
+              className={`bg-slate-700 ${selectedTabIndex === 0 && " bg-white text-black"}`}
             >
               Shopify
             </CustomTab>
             <CustomTab
-              className={`${selectedTabIndex === 1 && " bg-white text-black"}`}
+              className={`bg-slate-700 ${selectedTabIndex === 1 && " bg-white text-black"}`}
             >
               Facebook Ads
             </CustomTab>
             <CustomTab
-              className={`${selectedTabIndex === 2 && " bg-white text-black"}`}
+              className={`bg-slate-700 ${selectedTabIndex === 2 && " bg-white text-black"}`}
             >
               Google Ads
             </CustomTab>
@@ -116,7 +116,6 @@ export default Integrations;
 
 const CustomTab = styled(Tab)`
   padding: 10px 12px;
-  border: 1px solid white;
   cursor: pointer;
 `;
 

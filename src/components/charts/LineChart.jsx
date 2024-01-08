@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useThemeProvider } from "../utils/ThemeContext";
+import { useThemeProvider } from "../../utils/ThemeContext";
 
 import { chartColors } from "./ChartjsConfig";
 import {
@@ -15,7 +15,7 @@ import {
 import "chartjs-adapter-moment";
 
 // Import utilities
-import { tailwindConfig, formatValue } from "../utils/Utils";
+import { tailwindConfig, formatValue } from "../../utils/Utils.js";
 
 Chart.register(
   LineController,
@@ -40,13 +40,12 @@ function LineChart({ data, width, height }) {
     tooltipBgColor,
     tooltipBorderColor,
   } = chartColors;
-
   useEffect(() => {
-    const ctx = canvas.current;
+    const ctx = canvas?.current;
+    if (!ctx) return;
     if (chart) {
       chart.destroy();
     }
-
     // eslint-disable-next-line no-unused-vars
     const newChart = new Chart(ctx, {
       type: "line",
@@ -74,9 +73,9 @@ function LineChart({ data, width, height }) {
             type: "time",
             time: {
               parser: "MM-DD-YYYY",
-              unit: "month",
+              unit: "day",
               displayFormats: {
-                month: "MMM YY",
+                day: "MM/DD",
               },
             },
             border: {
@@ -86,7 +85,7 @@ function LineChart({ data, width, height }) {
               display: false,
             },
             ticks: {
-              autoSkipPadding: 48,
+              autoSkipPadding: 10,
               maxRotation: 0,
               color: darkMode ? textColor.dark : textColor.light,
             },
@@ -180,7 +179,7 @@ function LineChart({ data, width, height }) {
     setChart(newChart);
     return () => newChart.destroy();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     if (!chart) return;

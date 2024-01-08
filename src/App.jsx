@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import "./css/style.css";
 
-import "./charts/ChartjsConfig";
+import "./components/charts/ChartjsConfig";
 
 // Import pages
 import Dashboard from "./pages/Dashboard";
@@ -12,9 +12,8 @@ import Integrations from "./pages/Integrations";
 import Profile from "./pages/Profile";
 
 // Import components
-import Sidebar from "./partials/Sidebar";
-import Header from "./partials/Header";
-import Banner from "./partials/Banner";
+import Sidebar from "./components/partials/Sidebar";
+import Header from "./components/partials/Header";
 function App() {
   const location = useLocation();
 
@@ -42,8 +41,6 @@ function App() {
           <Route exact path="/integrations" element={<Integrations />} />
           <Route exact path="/profile" element={<Profile />} />
         </Routes>
-
-        <Banner />
       </div>
     </div>
   );

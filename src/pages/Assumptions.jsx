@@ -81,7 +81,7 @@ const CustomTable = styled.table`
     white-space: no-wrap;
   }
   input {
-    border: none !important;
-    outline: none !important;
+    border: none;
+    outline: none;
   }
 `;

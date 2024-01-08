@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
+import WelcomeBanner from "../components/partials/dashboard/WelcomeBanner";
 import FilterButton from "../components/DropdownFilter";
 import Datepicker from "../components/Datepicker";
-import DashboardCard01 from "../partials/dashboard/DashboardCard01";
-import DashboardCard02 from "../partials/dashboard/DashboardCard02";
-import DashboardCard03 from "../partials/dashboard/DashboardCard03";
+import DashboardCard01 from "../components/partials/dashboard/DashboardCard01";
+import DashboardCard02 from "../components/partials/dashboard/DashboardCard02";
+import DashboardCard03 from "../components/partials/dashboard/DashboardCard03";
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const [startDate, setStartDate] = useState("2022-01-01");
+  const [endDate, setEndDate] = useState("2022-01-31");
   return (
     <main>
       <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
@@ -23,7 +24,7 @@ function Dashboard() {
             {/* Filter button */}
             <FilterButton />
             {/* Datepicker built with flatpickr */}
-            <Datepicker />
+            <Datepicker setStartDate={setStartDate} setEndDate={setEndDate} />
             {/* Add view button */}
             <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
               <svg
@@ -40,7 +41,7 @@ function Dashboard() {
         {/* Cards */}
         <div className="grid grid-cols-12 gap-6">
           {/* Line chart (Sales Over Time) */}
-          <DashboardCard01 />
+          <DashboardCard01 startDate={startDate} endDate={endDate} />
           {/* Card (Customers) */}
           <DashboardCard02 />
           {/* Card (Income/Expenses) */}
